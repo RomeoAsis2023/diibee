@@ -1,0 +1,77 @@
+backend:
+  name: github
+  repo: RomeoAsis2023/diibee  # Fixed: Added username
+  branch: main
+  base_url: https://sveltia-cms-auth.meoasis2014.workers.dev/
+
+# Tell CMS where your data lives
+collections:
+  - name: database
+    label: "Database Records"
+    label_singular: "Record"
+    file: "database.json"
+    format: json
+    create: true
+    delete: true
+    identifier_field: "id"
+    
+    fields:
+      - name: id
+        label: "Record ID"
+        widget: number
+        required: true
+      
+      - name: relational_id
+        label: "Relational ID"
+        widget: number
+        required: false
+      
+      - name: collection
+        label: "Collection Type"
+        widget: select
+        options:
+          - { label: "User", value: "user" }
+          - { label: "Post", value: "post" }
+          - { label: "Page", value: "page" }
+          - { label: "Category", value: "category" }
+          - { label: "Product", value: "product" }
+      
+      - name: collation
+        label: "Collation Fields"
+        widget: list
+        summary: "{{fields.type}}: {{fields.value}}"
+        fields:
+          - { name: type, label: "Type", widget: string }
+          - { name: value, label: "Value", widget: string }
+      
+      - name: metakey
+        label: "Meta Data"
+        widget: list
+        summary: "{{fields.key}} = {{fields.value}}"
+        fields:
+          - { name: key, label: "Key", widget: string }
+          - { name: value, label: "Value", widget: text }
+      
+      - name: createddate
+        label: "Created Date"
+        widget: datetime
+        default: "{{now}}"
+        date_format: "YYYY-MM-DD"
+        time_format: "HH:mm:ss"
+      
+      - name: updatedate
+        label: "Updated Date"
+        widget: datetime
+        default: "{{now}}"
+        date_format: "YYYY-MM-DD"
+        time_format: "HH:mm:ss"
+      
+      - name: createdBy
+        label: "Created By"
+        widget: string
+        default: "system"
+      
+      - name: updatedBy
+        label: "Updated By"
+        widget: string
+        default: "system"
