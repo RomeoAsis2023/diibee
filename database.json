@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "relational_id": null,
+    "collection": "user",
+    "collation": [
+      { "type": "primary", "value": "admin" }
+    ],
+    "metakey": [
+      { "key": "name", "value": "John Doe" },
+      { "key": "email", "value": "john@example.com" }
+    ],
+    "createddate": "2024-01-01T00:00:00.000Z",
+    "updatedate": "2024-01-01T00:00:00.000Z",
+    "createdBy": "system",
+    "updatedBy": "system"
+  }
+]
