@@ -1,8 +1,11 @@
 backend:
   name: github
-  repo: RomeoAsis2023/diibee  # Fixed: Added username
+  repo: RomeoAsis2023/diibee
   branch: main
-  base_url: https://sveltia-cms-auth.meoasis2014.workers.dev/
+  # Remove the base_url line - this skips OAuth
+  # base_url: https://sveltia-cms-auth.meoasis2014.workers.dev/
+  auth_scope: repo
+  open_authorization: true
 
 # Tell CMS where your data lives
 collections:
