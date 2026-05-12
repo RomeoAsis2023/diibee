@@ -2,32 +2,40 @@ backend:
   name: github
   repo: RomeoAsis2023/diibee
   branch: main
-  # Remove the base_url line - this skips OAuth
-  # base_url: https://sveltia-cms-auth.meoasis2014.workers.dev/
-  auth_scope: repo
-  open_authorization: true
+  base_url: https://sveltia-cms-auth.meoasis2014.workers.dev/
 
-# Tell CMS where your data lives
+# Fix #1: Define media folder
+media_folder: "public/images"
+public_folder: "/images"
+
+# Fix #2: Correct collection structure
 collections:
   - name: database
     label: "Database Records"
     label_singular: "Record"
-    file: "database.json"
-    format: json
+    folder: "/"  # This replaces 'file' - CMS will create individual files
+    identifier_field: "id"
     create: true
     delete: true
-    identifier_field: "id"
+    extension: json
+    format: json
+    slug: "{{id}}"  # Creates files like 1.json, 2.json
+    
+    summary: "{{fields.collection}} #{{fields.id}} - {{fields.metakey.0.value}}"
+    sortable_fields: ["id", "collection", "createddate"]
     
     fields:
       - name: id
         label: "Record ID"
         widget: number
         required: true
+        value_type: "int"
       
       - name: relational_id
         label: "Relational ID"
         widget: number
         required: false
+        value_type: "int"
       
       - name: collection
         label: "Collection Type"
@@ -38,11 +46,13 @@ collections:
           - { label: "Page", value: "page" }
           - { label: "Category", value: "category" }
           - { label: "Product", value: "product" }
+        required: true
       
       - name: collation
         label: "Collation Fields"
         widget: list
         summary: "{{fields.type}}: {{fields.value}}"
+        label_singular: "Collation Item"
         fields:
           - { name: type, label: "Type", widget: string }
           - { name: value, label: "Value", widget: string }
@@ -51,6 +61,7 @@ collections:
         label: "Meta Data"
         widget: list
         summary: "{{fields.key}} = {{fields.value}}"
+        label_singular: "Meta Item"
         fields:
           - { name: key, label: "Key", widget: string }
           - { name: value, label: "Value", widget: text }
@@ -61,6 +72,7 @@ collections:
         default: "{{now}}"
         date_format: "YYYY-MM-DD"
         time_format: "HH:mm:ss"
+        format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
       
       - name: updatedate
         label: "Updated Date"
@@ -68,13 +80,16 @@ collections:
         default: "{{now}}"
         date_format: "YYYY-MM-DD"
         time_format: "HH:mm:ss"
+        format: "YYYY-MM-DDTHH:mm:ss.SSSZ"
       
       - name: createdBy
         label: "Created By"
         widget: string
         default: "system"
+        required: false
       
       - name: updatedBy
         label: "Updated By"
         widget: string
         default: "system"
+        required: false
