@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "relational_id": 1,
+  "collection": "user",
+  "collation": [
+    {
+      "type": "repeatable",
+      "value": "yes"
+    }
+  ],
+  "metakey": [
+    {
+      "key": "name",
+      "value": "romeo"
+    }
+  ],
+  "createddate": "2026-05-12T18:24:00.000+08:00",
+  "updatedate": "2026-05-12T18:24:00.000+08:00",
+  "createdBy": "system",
+  "updatedBy": "system"
+}
